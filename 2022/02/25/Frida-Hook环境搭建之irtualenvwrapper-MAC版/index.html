@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="Python虚拟环境的安装(MAC)使用pip3安装1sudo pip3 install virtualenvwrapper 卸载1sudo pip3 uninstall virtualenvwrapper  新建存放环境目录（目录为Envs并放在Home下）1mkdir -p ~&#x2F;Envs  配置virtualenvwrapper环境打开 vim ~&#x2F;.bash_profile 123">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Frida Hook环境搭建之irtualenvwrapper(MAC版)">
+<meta property="og:url" content="http://example.com/2022/02/25/Frida-Hook%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E4%B9%8Birtualenvwrapper-MAC%E7%89%88/index.html">
+<meta property="og:site_name" content="acesec主席同志">
+<meta property="og:description" content="Python虚拟环境的安装(MAC)使用pip3安装1sudo pip3 install virtualenvwrapper 卸载1sudo pip3 uninstall virtualenvwrapper  新建存放环境目录（目录为Envs并放在Home下）1mkdir -p ~&#x2F;Envs  配置virtualenvwrapper环境打开 vim ~&#x2F;.bash_profile 123">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-02-24T18:04:30.000Z">
+<meta property="article:modified_time" content="2022-02-24T18:22:27.015Z">
+<meta property="article:author" content="主席同志">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>Frida Hook环境搭建之irtualenvwrapper(MAC版)</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/projects_url">Projects</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2022/02/24/%E4%B8%AD%E5%8D%8E%E4%BA%BA%E6%B0%91%E5%85%B1%E5%92%8C%E5%9B%BD-acesec%E7%BB%84%E7%BB%87%E4%B8%BB%E5%B8%AD%E5%90%8C%E5%BF%97/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2022/02/25/Frida-Hook%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E4%B9%8Birtualenvwrapper-MAC%E7%89%88/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2022/02/25/Frida-Hook%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E4%B9%8Birtualenvwrapper-MAC%E7%89%88/&text=Frida Hook环境搭建之irtualenvwrapper(MAC版)"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2022/02/25/Frida-Hook%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E4%B9%8Birtualenvwrapper-MAC%E7%89%88/&title=Frida Hook环境搭建之irtualenvwrapper(MAC版)"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2022/02/25/Frida-Hook%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E4%B9%8Birtualenvwrapper-MAC%E7%89%88/&is_video=false&description=Frida Hook环境搭建之irtualenvwrapper(MAC版)"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Frida Hook环境搭建之irtualenvwrapper(MAC版)&body=Check out this article: http://example.com/2022/02/25/Frida-Hook%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E4%B9%8Birtualenvwrapper-MAC%E7%89%88/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2022/02/25/Frida-Hook%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E4%B9%8Birtualenvwrapper-MAC%E7%89%88/&title=Frida Hook环境搭建之irtualenvwrapper(MAC版)"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2022/02/25/Frida-Hook%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E4%B9%8Birtualenvwrapper-MAC%E7%89%88/&title=Frida Hook环境搭建之irtualenvwrapper(MAC版)"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2022/02/25/Frida-Hook%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E4%B9%8Birtualenvwrapper-MAC%E7%89%88/&title=Frida Hook环境搭建之irtualenvwrapper(MAC版)"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2022/02/25/Frida-Hook%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E4%B9%8Birtualenvwrapper-MAC%E7%89%88/&title=Frida Hook环境搭建之irtualenvwrapper(MAC版)"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2022/02/25/Frida-Hook%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E4%B9%8Birtualenvwrapper-MAC%E7%89%88/&name=Frida Hook环境搭建之irtualenvwrapper(MAC版)&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2022/02/25/Frida-Hook%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E4%B9%8Birtualenvwrapper-MAC%E7%89%88/&t=Frida Hook环境搭建之irtualenvwrapper(MAC版)"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Python%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E7%9A%84%E5%AE%89%E8%A3%85-MAC"><span class="toc-number">1.</span> <span class="toc-text">Python虚拟环境的安装(MAC)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8pip3%E5%AE%89%E8%A3%85"><span class="toc-number">1.1.</span> <span class="toc-text">使用pip3安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%B8%E8%BD%BD"><span class="toc-number">1.2.</span> <span class="toc-text">卸载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B0%E5%BB%BA%E5%AD%98%E6%94%BE%E7%8E%AF%E5%A2%83%E7%9B%AE%E5%BD%95%EF%BC%88%E7%9B%AE%E5%BD%95%E4%B8%BAEnvs%E5%B9%B6%E6%94%BE%E5%9C%A8Home%E4%B8%8B%EF%BC%89"><span class="toc-number">1.3.</span> <span class="toc-text">新建存放环境目录（目录为Envs并放在Home下）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AEvirtualenvwrapper%E7%8E%AF%E5%A2%83"><span class="toc-number">1.4.</span> <span class="toc-text">配置virtualenvwrapper环境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E9%85%8D%E7%BD%AE%E7%94%9F%E6%95%88"><span class="toc-number">1.5.</span> <span class="toc-text">使配置生效</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#virtualenvwrapper-%E4%BD%BF%E7%94%A8"><span class="toc-number">2.</span> <span class="toc-text">virtualenvwrapper 使用</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Frida Hook环境搭建之irtualenvwrapper(MAC版)
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">主席同志</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2022-02-24T18:04:30.000Z" itemprop="datePublished">2022-02-25</time>
+        
+      
+    </div>
+
+
+      
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="Python虚拟环境的安装-MAC"><a href="#Python虚拟环境的安装-MAC" class="headerlink" title="Python虚拟环境的安装(MAC)"></a>Python虚拟环境的安装(MAC)</h2><h3 id="使用pip3安装"><a href="#使用pip3安装" class="headerlink" title="使用pip3安装"></a>使用pip3安装</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pip3 install virtualenvwrapper</span><br></pre></td></tr></table></figure>
+<h3 id="卸载"><a href="#卸载" class="headerlink" title="卸载"></a>卸载</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pip3 uninstall virtualenvwrapper</span><br></pre></td></tr></table></figure>
+
+<h3 id="新建存放环境目录（目录为Envs并放在Home下）"><a href="#新建存放环境目录（目录为Envs并放在Home下）" class="headerlink" title="新建存放环境目录（目录为Envs并放在Home下）"></a>新建存放环境目录（目录为Envs并放在Home下）</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p ~/Envs</span><br></pre></td></tr></table></figure>
+
+<h3 id="配置virtualenvwrapper环境"><a href="#配置virtualenvwrapper环境" class="headerlink" title="配置virtualenvwrapper环境"></a>配置virtualenvwrapper环境</h3><p>打开 vim ~&#x2F;.bash_profile</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 设置virtualenvwrapper</span><br><span class="line">export WORKON_HOME=~/Envs</span><br><span class="line">export VIRTUALENVWRAPPER_PYTHON=/Library/Frameworks/Python.framework/Versions/3.8/bin/python3</span><br><span class="line"></span><br><span class="line"># 打开终端自动启用</span><br><span class="line">source /Library/Frameworks/Python.framework/Versions/3.8/bin/virtualenvwrapper.sh</span><br></pre></td></tr></table></figure>
+
+<h3 id="使配置生效"><a href="#使配置生效" class="headerlink" title="使配置生效"></a>使配置生效</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source ~/.bash_profile</span><br></pre></td></tr></table></figure>
+
+<h2 id="virtualenvwrapper-使用"><a href="#virtualenvwrapper-使用" class="headerlink" title="virtualenvwrapper 使用"></a>virtualenvwrapper 使用</h2><ol>
+<li><p>新建python虚拟环境ace并指定python版本python3.8.10</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkvirtualenv ace --python=python3.8.10</span><br></pre></td></tr></table></figure>
+<p>执行<code>lsvirtualenv</code>指令查看所有环境，环境ace位于~&#x2F;Envs&#x2F;ace</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">lsvirtualenv</span><br><span class="line">ace </span><br><span class="line">====</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在项目底下激活虚拟环境ace</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">workon ace</span><br></pre></td></tr></table></figure></li>
+<li><p>其他指令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">## 退出环境ace</span><br><span class="line">deactivate </span><br><span class="line"></span><br><span class="line">## 删除环境ace </span><br><span class="line">rmvirtualenv ace </span><br><span class="line"></span><br><span class="line">## 更多指令可以在shell中输入virtualenv回车会有提示</span><br></pre></td></tr></table></figure></li>
+</ol>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/projects_url">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Python%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E7%9A%84%E5%AE%89%E8%A3%85-MAC"><span class="toc-number">1.</span> <span class="toc-text">Python虚拟环境的安装(MAC)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8pip3%E5%AE%89%E8%A3%85"><span class="toc-number">1.1.</span> <span class="toc-text">使用pip3安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%B8%E8%BD%BD"><span class="toc-number">1.2.</span> <span class="toc-text">卸载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B0%E5%BB%BA%E5%AD%98%E6%94%BE%E7%8E%AF%E5%A2%83%E7%9B%AE%E5%BD%95%EF%BC%88%E7%9B%AE%E5%BD%95%E4%B8%BAEnvs%E5%B9%B6%E6%94%BE%E5%9C%A8Home%E4%B8%8B%EF%BC%89"><span class="toc-number">1.3.</span> <span class="toc-text">新建存放环境目录（目录为Envs并放在Home下）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AEvirtualenvwrapper%E7%8E%AF%E5%A2%83"><span class="toc-number">1.4.</span> <span class="toc-text">配置virtualenvwrapper环境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E9%85%8D%E7%BD%AE%E7%94%9F%E6%95%88"><span class="toc-number">1.5.</span> <span class="toc-text">使配置生效</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#virtualenvwrapper-%E4%BD%BF%E7%94%A8"><span class="toc-number">2.</span> <span class="toc-text">virtualenvwrapper 使用</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2022/02/25/Frida-Hook%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E4%B9%8Birtualenvwrapper-MAC%E7%89%88/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2022/02/25/Frida-Hook%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E4%B9%8Birtualenvwrapper-MAC%E7%89%88/&text=Frida Hook环境搭建之irtualenvwrapper(MAC版)"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2022/02/25/Frida-Hook%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E4%B9%8Birtualenvwrapper-MAC%E7%89%88/&title=Frida Hook环境搭建之irtualenvwrapper(MAC版)"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2022/02/25/Frida-Hook%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E4%B9%8Birtualenvwrapper-MAC%E7%89%88/&is_video=false&description=Frida Hook环境搭建之irtualenvwrapper(MAC版)"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Frida Hook环境搭建之irtualenvwrapper(MAC版)&body=Check out this article: http://example.com/2022/02/25/Frida-Hook%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E4%B9%8Birtualenvwrapper-MAC%E7%89%88/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2022/02/25/Frida-Hook%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E4%B9%8Birtualenvwrapper-MAC%E7%89%88/&title=Frida Hook环境搭建之irtualenvwrapper(MAC版)"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2022/02/25/Frida-Hook%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E4%B9%8Birtualenvwrapper-MAC%E7%89%88/&title=Frida Hook环境搭建之irtualenvwrapper(MAC版)"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2022/02/25/Frida-Hook%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E4%B9%8Birtualenvwrapper-MAC%E7%89%88/&title=Frida Hook环境搭建之irtualenvwrapper(MAC版)"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2022/02/25/Frida-Hook%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E4%B9%8Birtualenvwrapper-MAC%E7%89%88/&title=Frida Hook环境搭建之irtualenvwrapper(MAC版)"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2022/02/25/Frida-Hook%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E4%B9%8Birtualenvwrapper-MAC%E7%89%88/&name=Frida Hook环境搭建之irtualenvwrapper(MAC版)&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2022/02/25/Frida-Hook%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E4%B9%8Birtualenvwrapper-MAC%E7%89%88/&t=Frida Hook环境搭建之irtualenvwrapper(MAC版)"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2022
+    主席同志
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/projects_url">Projects</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
